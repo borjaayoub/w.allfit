@@ -95,10 +95,15 @@ Vercel will auto-detect your framework. Configure these settings:
 1. Expand **"Environment Variables"** section
 2. Click **"Add"** and add:
    - **Name:** `VITE_API_URL`
-   - **Value:** Your backend API URL (e.g., `https://your-backend.herokuapp.com` or `https://api.yourdomain.com`)
+   - **Value:** Your backend API URL 
+     - If using Railway: `https://your-backend.up.railway.app`
+     - If using other services: `https://your-backend.herokuapp.com` or `https://api.yourdomain.com`
    - **Environments:** Select all (Production, Preview, Development)
 
-**Note:** Replace `http://localhost:5000` with your actual deployed backend URL.
+**Note:** 
+- Replace `http://localhost:5000` with your actual deployed backend URL
+- If deploying backend on Railway, see `RAILWAY_DEPLOYMENT.md` for instructions
+- Make sure your backend CORS is configured to allow your Vercel domain
 
 ### 3.5 Deploy
 
@@ -250,8 +255,27 @@ vercel logs
 
 ---
 
+## Connecting to Railway Backend
+
+If you're deploying your backend on Railway (see `RAILWAY_DEPLOYMENT.md`):
+
+1. **Get your Railway backend URL:**
+   - Go to Railway dashboard → Your backend service → Settings → Networking
+   - Copy the generated domain (e.g., `https://your-backend.up.railway.app`)
+
+2. **Update Vercel environment variable:**
+   - Go to Vercel → Your project → Settings → Environment Variables
+   - Update `VITE_API_URL` with your Railway backend URL
+   - Redeploy your frontend
+
+3. **Configure CORS on Railway backend:**
+   - Add `FRONTEND_URL` environment variable in Railway
+   - Set it to your Vercel domain: `https://your-frontend.vercel.app`
+   - Update your backend CORS configuration (see `RAILWAY_DEPLOYMENT.md`)
+
 ## Next Steps
 
+- Deploy backend on Railway (see `RAILWAY_DEPLOYMENT.md`)
 - Set up environment variables for different environments (staging, production)
 - Configure preview deployments for pull requests
 - Set up analytics and monitoring
