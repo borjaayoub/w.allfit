@@ -16,8 +16,12 @@ import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 const app = express();
 
 // Configure CORS - allow all origins in development, specific origin in production
+// Note: When credentials: true, we cannot use origin: '*', so we use a function to allow all
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || '*', // Use '*' for development, specific URL for production
+  origin: process.env.FRONTEND_URL || function (origin, callback) {
+    // Allow all origins when FRONTEND_URL is not set (development)
+    callback(null, true);
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };
