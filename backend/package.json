@@ -6,7 +6,8 @@
   "scripts": {
     "db:setup": "node ./src/db/setup.js",
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "deploy": "npm run db:setup && npm start"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
